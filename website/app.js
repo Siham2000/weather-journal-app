@@ -27,7 +27,7 @@ function gatheringData() {
     dateValu: newDate,
   };
 
-  let weatherData = getWeatherData(allData.zipValue);
+  let weatherData = getWeatherData(allData.zipValue, API_KEY);
   weatherData
     .then((zipData) => {
       zipData.cod != 200
@@ -39,14 +39,13 @@ function gatheringData() {
       postDataToServer(allData);
     })
     .catch((error) => console.log(error));
-};
+}
 
-
-async function getWeatherData(zipCode) {
-  let res = await fetch(`${BASE_URL}${zipCode}${API_KEY}`);
+async function getWeatherData(zipCode, apiKey) {
+  let res = await fetch(`${BASE_URL}${zipCode}${apiKey}`);
   let zipData = await res.json();
   return zipData;
-};
+}
 
 
 async function postDataToServer(data) {
